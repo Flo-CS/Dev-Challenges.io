@@ -20,7 +20,7 @@ app.post("/api/images", upload.single("image"), (req, res) => {
     const imagePath = path.join(IMAGES_FOLDER, imageFileName);
 
     if (!AUTHORIZED_IMAGES_EXTENSIONS.includes(imageExtension.toUpperCase())) {
-        return res.status(400).json({message: "Bad image extension", imageExtension: imageExtension});
+        return res.status(400).json({message: "Bad image extension", data: {imageExtension: imageExtension}});
     }
 
     try {
