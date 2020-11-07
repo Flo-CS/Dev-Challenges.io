@@ -7,13 +7,16 @@ const path = require("path");
 require("dotenv").config();
 
 const PORT = process.env.PORT;
-const IMAGES_FOLDER = path.join(__dirname, "data/images");
+const IMAGES_FOLDER = "data/images";
 const AUTHORIZED_FILES_EXTENSIONS = ["JPG", "PNG", "JPEG", "GIF"];
+const SERVER_URL = `http://localhost:${PORT}`;
 
 const app = express();
 const upload = multer();
 
 app.use(cors());
+
+app.use("/data/images", express.static(IMAGES_FOLDER));
 
 app.post("/api/upload_file", upload.single("file"), (req, res) => {
     const fileExtensionSplit = req.file.originalname.split(".");
@@ -28,7 +31,7 @@ app.post("/api/upload_file", upload.single("file"), (req, res) => {
     try {
         fs.writeFileSync(filePath, req.file.buffer);
         return res.status(201).json({
-            message: "Successful file upload", data: {filePath}
+            message: "Successful file upload", data: {filePath: `${SERVER_URL}/${filePath}`}
         });
     } catch {
         return res.status(500).json({
