@@ -31,7 +31,8 @@ const ImageLinkContainer = styled.div`
 const ImageLink = styled.p`
     font-size: 10px;
     color: #4F4F4F;
-    margin: 0 10px;
+    margin-left: 10px;
+    margin-right: auto;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
