@@ -10,6 +10,7 @@ const Container = styled.div`
     justify-content: space-evenly;
     width: 400px;
     height: 470px;
+    padding: 10px 30px;
 `;
 
 const Title = styled.p`
@@ -24,7 +25,7 @@ const Subtitle = styled.p`
 `;
 
 const Dropzone = styled.div`
-    width: 340px;
+    width: 100%;
     height: 220px;
     border-radius: 12px;
     border: 1px dashed #97BEF4;
