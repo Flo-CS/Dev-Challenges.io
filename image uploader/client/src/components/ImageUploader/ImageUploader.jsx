@@ -34,7 +34,7 @@ function ImageUploader() {
             setImagePath(res.data.data.filePath);
         }).catch((err) => {
             console.log(err);
-            setState(UPLOADED_STATE);
+            setState(INITIAL_STATE);
         });
     }
 
