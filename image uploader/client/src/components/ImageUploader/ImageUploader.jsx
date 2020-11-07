@@ -29,12 +29,11 @@ function ImageUploader() {
 
         setState(UPLOADING_STATE);
         axios.post(url, formData, {headers: {"Content-Type": "multipart/form-data"}}).then((res) => {
-            console.log(res);
             setState(UPLOADED_STATE);
             setImagePath(res.data.data.filePath);
         }).catch((err) => {
-            console.log(err);
             setState(INITIAL_STATE);
+            alert(err.response.data.message);
         });
     }
 
