@@ -4,6 +4,7 @@ import styled from "styled-components";
 import {API_ENDPOINT} from "../../config";
 
 import ImageUploaderInitial from "./ImageUploaderInitial";
+import ImageUploaderUploaded from "./ImageUploaderUploaded";
 import ImageUploaderUploading from "./ImageUploaderUploading";
 
 
@@ -19,6 +20,7 @@ const UPLOADED_STATE = "uploaded";
 
 function ImageUploader() {
     const [state, setState] = useState(INITIAL_STATE);
+    const [imagePath, setImagePath] = useState(null);
 
     function handleFileUpload(file) {
         const url = `${API_ENDPOINT}/upload_file`;
@@ -28,8 +30,11 @@ function ImageUploader() {
         setState(UPLOADING_STATE);
         axios.post(url, formData, {headers: {"Content-Type": "multipart/form-data"}}).then((res) => {
             console.log(res);
+            setState(UPLOADED_STATE);
+            setImagePath(res.data.data.filePath);
         }).catch((err) => {
             console.log(err);
+            setState(UPLOADED_STATE);
         });
     }
 
@@ -40,6 +45,8 @@ function ImageUploader() {
                     return <ImageUploaderInitial onFileUpload={handleFileUpload}/>;
                 case UPLOADING_STATE:
                     return <ImageUploaderUploading/>;
+                case UPLOADED_STATE:
+                    return <ImageUploaderUploaded imagePath={imagePath}/>;
                 default:
                     return <ImageUploaderInitial onFileUpload={handleFileUpload}/>;
             }
