@@ -8,7 +8,7 @@ require("dotenv").config();
 
 const PORT = process.env.PORT;
 const IMAGES_FOLDER = path.join(__dirname, "data/images");
-const AUTHORIZED_IMAGES_EXTENSIONS = ["JPG", "PNG", "JPEG", "GIF"];
+const AUTHORIZED_FILES_EXTENSIONS = ["JPG", "PNG", "JPEG", "GIF"];
 
 const app = express();
 const upload = multer();
@@ -18,11 +18,10 @@ app.use(cors());
 app.post("/api/upload_file", upload.single("file"), (req, res) => {
     const fileExtensionSplit = req.file.originalname.split(".");
     const fileExtension = fileExtensionSplit[fileExtensionSplit.length - 1];
-
     const fileName = `${uuid()}.${fileExtension}`;
     const filePath = path.join(IMAGES_FOLDER, fileName);
 
-    if (!AUTHORIZED_IMAGES_EXTENSIONS.includes(fileExtension.toUpperCase())) {
+    if (!AUTHORIZED_FILES_EXTENSIONS.includes(fileExtension.toUpperCase())) {
         return res.status(400).json({message: "Bad file extension", data: {fileExtension}});
     }
 
